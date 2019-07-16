@@ -1,6 +1,7 @@
 package com.lambda.countries;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class CountryList
 {
@@ -212,5 +213,19 @@ public class CountryList
     }
 
 
+    //1.Get all country names ordered alphabetically
+    public ArrayList<String> getCountryNames()
+    {
+        return countryList.stream().map(e->e.getCountryName()).sorted((c1,c2)->c1.compareToIgnoreCase(c2)).collect(Collectors
+                .toCollection(ArrayList::new));
+    }
 
+    //2.return the countries alphabetically that begin with the given letter
+
+    public ArrayList<String> getSomeCountryNames(char firstCharacter)
+    {
+        //with method reference
+        return countryList.stream().map(Country::getCountryName).filter(e->e.charAt(0)==firstCharacter).collect(Collectors
+                .toCollection(ArrayList::new));
+    }
 }
