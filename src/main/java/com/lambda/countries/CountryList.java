@@ -1,6 +1,8 @@
 package com.lambda.countries;
 
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class CountryList
@@ -216,6 +218,7 @@ public class CountryList
     //1.Get all country names ordered alphabetically
     public ArrayList<String> getCountryNames()
     {
+        //with lambda expression
         return countryList.stream().map(e->e.getCountryName()).sorted((c1,c2)->c1.compareToIgnoreCase(c2)).collect(Collectors
                 .toCollection(ArrayList::new));
     }
@@ -227,5 +230,24 @@ public class CountryList
         //with method reference
         return countryList.stream().map(Country::getCountryName).filter(e->e.charAt(0)==firstCharacter).collect(Collectors
                 .toCollection(ArrayList::new));
+    }
+
+    //3.return the countries alphabetically that have a name equal to or longer than the given length
+    public ArrayList<String> filterCountriesByLength(int length){
+        return countryList.stream().map(Country::getCountryName).filter(e->e.length()>=length).collect(Collectors
+                .toCollection(ArrayList::new));
+    }
+    //4.return the country with the smallest population
+    public String smallestPopulation()
+    {
+        return countryList.stream().min(Comparator.comparing(Country::getPopulation)).orElse(null).getCountryName();
+
+    }
+
+    //5.return the country with the largest population
+    public String largestPopulation()
+    {
+        return countryList.stream().max(Comparator.comparing(Country::getPopulation)).orElse(null).getCountryName();
+
     }
 }

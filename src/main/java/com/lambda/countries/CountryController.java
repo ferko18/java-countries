@@ -28,6 +28,27 @@ public class CountryController
         char upperLetter = Character.toUpperCase(letter);
         return  new ResponseEntity<>( CountriesApplication.myCountryList.getSomeCountryNames(upperLetter), HttpStatus.OK);
     }
+
+    //3.return the countries alphabetically that have a name equal to or longer than the given length
+    @RequestMapping(value ="/names/size/{namelength}", produces ={"application/json"}, method = RequestMethod.GET)
+    public ResponseEntity<?> filterNations(@PathVariable int namelength)
+    {
+        return  new ResponseEntity<>( CountriesApplication.myCountryList.filterCountriesByLength(namelength), HttpStatus.OK);
+    }
+    //4.return the country with the smallest population
+    @RequestMapping(value ="/population/min", produces ={"application/json"}, method = RequestMethod.GET)
+    public ResponseEntity<?> smallestPopulation()
+    {
+        return  new ResponseEntity<>( CountriesApplication.myCountryList.smallestPopulation(), HttpStatus.OK);
+    }
+
+    //4.return the country with the smallest population
+    @RequestMapping(value ="/population/max", produces ={"application/json"}, method = RequestMethod.GET)
+    public ResponseEntity<?> largestPopulation()
+    {
+        return  new ResponseEntity<>( CountriesApplication.myCountryList.largestPopulation(), HttpStatus.OK);
+    }
+
 }
 
 
